@@ -1,0 +1,112 @@
+<html> 
+
+	<head>
+		<title>FOOTBALL</title>
+		<script> 
+			function getAllPlayers() {
+				var ruta = "http://localhost:8085/players";
+				var httprequest = new XMLHttpRequest(); 
+				
+				httprequest.onreadystatechange = function() {
+					if(httprequest.readyState === 4) {
+						document.getElementById("players").innerHTML = httprequest.responseText; 
+					} 
+				
+				};
+							
+				httprequest.open("GET", ruta, true);
+				httprequest.send();
+			}
+			
+			function getOnePlayer() {
+				var id = 1; 
+				var ruta = "http://localhost:8085/players/" + id;
+				
+				var httprequest = new XMLHttpRequest(); 
+				
+				httprequest.onreadystatechange = function() {
+					if(httprequest.readyState === 4) {
+						var player = JSON.parse(httprequest.responseText);
+						var text =  "Name: " + player.name + 
+									"Club: " + player.club + 
+									"Price: " + player.price + 
+									"Age: " + player.age;
+						document.getElementById("onePlayer").innerHTML = text; 
+					} 
+				
+				};
+				
+				
+				httprequest.open("GET", ruta, true);
+				httprequest.send();
+			}
+			
+			function createOnePlayer() {
+			
+				var ruta = "http://localhost:8085/players/";
+					
+				var data = {};
+					data.id = 15;
+					data.name = "Luka Jovic";
+					data.club = "Real Madrid";
+					data.price = "50M";
+					data.age = 24;
+					
+					var json = JSON.stringify(data);
+					
+					var httprequest = new XMLHttpRequest(); 
+					
+					httprequest.onreadystatechange = function() {
+						if(httprequest.readyState === 4) {
+							document.getElementById("createPlayer").innerHTML = 
+								httprequest.responseText;
+						}
+					};		
+				
+				httprequest.open("POST", ruta, true);
+				httprequest.setRequestHeader("Content-type", "application/json");
+				httprequest.send(json);
+			}
+			
+			function deleteOnePlayer(){
+				var id = "15"; //dohvatate iz konteksta
+				var ruta = "http://localhost:8085/players/" + id;
+				
+				var httprequest = new XMLHttpRequest();
+				httprequest.onreadystatechange = function(){
+					if(httprequest.readyState == 4){
+						document.getElementById("deletePlayer").innerHTML = httprequest.responseText;
+				}
+			}
+			
+			httprequest.open("DELETE", ruta, true);
+			httprequest.send();
+		}
+			
+			
+		</script>
+
+	</head>
+	<body> 
+		<div>
+			<button type="button" onclick="getAllPlayers()">Dohvati sve igrace</button>
+		</div>	
+		<div>
+			<button type="button" onclick="getOnePlayer()">Dohvati jednog igraca</button>
+		</div>
+		<div>
+			<button type="button" onclick="createOnePlayer()">Kreiraj jednog igraca</button>
+		</div>
+			<div>
+			<button type="button" onclick="deleteOnePlayer()">Obrisi jednog igraca</button>
+		</div>
+			<p id="players"></p>
+			<p id="onePlayer"></p>
+			<p id="createPlayer"></p>
+			<p id="deletePlayer"></p>
+	</body>
+	
+
+
+
+</html>
