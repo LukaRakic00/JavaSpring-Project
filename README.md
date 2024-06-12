@@ -1,2 +1,2 @@
 # **Java Spring project** 
-Aspect-oriented programming in Java through a practical Spring application project in Angular for an online bookstore
+Explore Aspect-oriented programming in Java by implementing a practical Spring application for a team manager in the FIFA game, complete with CRUD operations, all developed in Eclipse IDE. Utilize Postman for thorough API testing.
